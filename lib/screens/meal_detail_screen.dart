@@ -4,8 +4,9 @@ import '../models/meal.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const String routeName = '/meal';
-
-  const MealDetailScreen();
+  final Function addFavorite;
+  final Function isFavorite;
+  const MealDetailScreen(this.addFavorite, this.isFavorite);
 
   Widget _ingredientItemBuilder(BuildContext ctx, Meal item, int index) {
     return Card(
@@ -86,6 +87,13 @@ class MealDetailScreen extends StatelessWidget {
           ))
         ]),
       )),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          isFavorite(selectedMeal.id) ? Icons.star : Icons.star_border,
+          color: Theme.of(context).errorColor,
+        ),
+        onPressed: () => addFavorite(selectedMeal.id),
+      ),
     );
   }
 }
